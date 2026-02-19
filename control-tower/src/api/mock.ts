@@ -79,6 +79,7 @@ const mockBatches: Batch[] = [
     currency: 'INR',
     capacity: 12,
     enrolledCount: 8,
+    availableSpots: 4,
     coachId: 'coach-1',
     coachName: 'Coach Rahul',
     venueId: 'venue-1',
@@ -101,6 +102,7 @@ const mockBatches: Batch[] = [
     currency: 'INR',
     capacity: 10,
     enrolledCount: 9,
+    availableSpots: 1,
     coachId: 'coach-2',
     coachName: 'Coach Priya',
     venueId: 'venue-2',
@@ -123,6 +125,7 @@ const mockBatches: Batch[] = [
     currency: 'INR',
     capacity: 15,
     enrolledCount: 12,
+    availableSpots: 3,
     coachId: 'coach-1',
     coachName: 'Coach Rahul & Priya',
     venueId: 'venue-3',
@@ -145,6 +148,7 @@ const mockBatches: Batch[] = [
     currency: 'INR',
     capacity: 6,
     enrolledCount: 6,
+    availableSpots: 0,
     coachId: 'coach-2',
     coachName: 'Coach Priya',
     venueId: 'venue-1',
@@ -256,12 +260,12 @@ class MockAPI {
     return { ...mockPixelConfig, ...config, academyId };
   }
 
-  async getPixelEvents(academyId: string): Promise<{ events: PixelEvent[]; total: number }> {
+  async getPixelEvents(_academyId: string): Promise<{ events: PixelEvent[]; total: number }> {
     await this.delay(500);
     return { events: [], total: 0 };
   }
 
-  async getPixelAnalytics(academyId: string): Promise<PixelAnalytics[]> {
+  async getPixelAnalytics(_academyId: string, _params?: any): Promise<PixelAnalytics[]> {
     await this.delay(600);
     return mockPixelAnalytics;
   }
@@ -276,12 +280,12 @@ class MockAPI {
     return { ...mockButtonConfig, ...config, academyId };
   }
 
-  async getButtonAnalytics(academyId: string): Promise<ButtonAnalytics[]> {
+  async getButtonAnalytics(_academyId: string, _params?: any): Promise<ButtonAnalytics[]> {
     await this.delay(600);
     return mockButtonAnalytics;
   }
 
-  async getBatches(academyId: string): Promise<Batch[]> {
+  async getBatches(academyId: string, _params?: { active?: boolean }): Promise<Batch[]> {
     await this.delay(500);
     return mockBatches.map(b => ({ ...b, academyId }));
   }
@@ -307,12 +311,12 @@ class MockAPI {
     return mockAppointmentSlots.map(s => ({ ...s, academyId }));
   }
 
-  async getEmbedCode(academyId: string): Promise<EmbedCode> {
+  async getEmbedCode(_academyId: string): Promise<EmbedCode> {
     await this.delay(300);
     return mockEmbedCode;
   }
 
-  async sendTestPixelEvent(academyId: string, event: any): Promise<void> {
+  async sendTestPixelEvent(_academyId: string, event: any): Promise<void> {
     await this.delay(500);
     console.log('Test event sent:', event);
   }

@@ -15,7 +15,7 @@ interface AppointmentSettingsPanelProps {
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export function AppointmentSettingsPanel({ academyId }: AppointmentSettingsPanelProps) {
-  const { data: settings, isLoading } = useAppointmentSettings(academyId);
+  const { data: _settings, isLoading } = useAppointmentSettings(academyId);
   const updateSettings = useUpdateAppointmentSettings();
 
   const [formData, setFormData] = useState({

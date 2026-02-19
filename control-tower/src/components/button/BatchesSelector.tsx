@@ -1,9 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
 import { useBatches, useUpdateBatch } from '@/hooks';
 import { Switch } from '@/components/ui/Switch';
 import { Badge } from '@/components/ui/Badge';
-import { Users, DollarSign, Calendar } from 'lucide-react';
+import { Users, DollarSign } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 interface BatchesSelectorProps {

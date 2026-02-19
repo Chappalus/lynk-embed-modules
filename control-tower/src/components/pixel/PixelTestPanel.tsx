@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/Label';
 import { useSendTestPixelEvent } from '@/hooks';
 import { Play, CheckCircle, AlertCircle } from 'lucide-react';
 import toast from 'react-hot-toast';

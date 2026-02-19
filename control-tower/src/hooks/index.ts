@@ -50,15 +50,15 @@ export const useUpdatePixelConfig = () => {
   });
 };
 
-export const usePixelEvents = (academyId: string, params: Parameters<typeof api.getPixelEvents>[1]) => {
+export const usePixelEvents = (academyId: string, params?: any) => {
   return useQuery({
     queryKey: [PIXEL_KEY, 'events', academyId, params],
-    queryFn: () => api.getPixelEvents(academyId, params),
+    queryFn: () => api.getPixelEvents(academyId),
     enabled: !!academyId,
   });
 };
 
-export const usePixelAnalytics = (academyId: string, params: Parameters<typeof api.getPixelAnalytics>[1]) => {
+export const usePixelAnalytics = (academyId: string, params?: any) => {
   return useQuery({
     queryKey: [PIXEL_KEY, 'analytics', academyId, params],
     queryFn: () => api.getPixelAnalytics(academyId, params),
@@ -115,8 +115,8 @@ export const useUpdateBatch = () => {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: ({ academyId, batchId, updates }: { academyId: string; batchId: string; updates: Parameters<typeof api.updateBatch>[2] }) =>
-      api.updateBatch(academyId, batchId, updates),
+    mutationFn: (vars: { academyId: string; batchId: string; updates: Partial<any> }) =>
+      api.updateBatch(vars.academyId, vars.batchId, vars.updates),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: [BATCHES_KEY, variables.academyId] });
     },

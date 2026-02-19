@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useButtonConfig, useUpdateButtonConfig, useBatches, useAppointmentSettings } from '@/hooks';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -16,7 +16,6 @@ import { AppointmentSettingsPanel } from './AppointmentSettingsPanel';
 import { 
   Type, 
   Palette, 
-  Settings,
   BarChart3,
   Code2,
   Calendar,
@@ -45,15 +44,15 @@ const SIZE_OPTIONS = [
 
 export function ButtonBuilder({ academyId }: ButtonBuilderProps) {
   const { data: config, isLoading } = useButtonConfig(academyId);
-  const { data: batches } = useBatches(academyId, { active: true });
-  const { data: appointmentConfig } = useAppointmentSettings(academyId);
+  useBatches(academyId, { active: true });
+  useAppointmentSettings(academyId);
   const updateConfig = useUpdateButtonConfig();
 
   const [formData, setFormData] = useState({
-    type: 'both' as const,
+    type: 'both' as 'booking' | 'appointment' | 'both',
     buttonText: 'Get in Touch',
-    buttonStyle: 'default' as const,
-    buttonSize: 'medium' as const,
+    buttonStyle: 'default' as 'default' | 'outline' | 'minimal',
+    buttonSize: 'medium' as 'small' | 'medium' | 'large',
     primaryColor: '#3b6eff',
     textColor: '#ffffff',
     backgroundColor: '#3b6eff',
@@ -62,7 +61,7 @@ export function ButtonBuilder({ academyId }: ButtonBuilderProps) {
     showShadow: true,
     modalTitle: 'Book with Us',
     successMessage: 'Thank you! We will contact you shortly.',
-    defaultTab: 'batches' as const,
+    defaultTab: 'batches' as 'batches' | 'appointments',
     showPrices: true,
     showAvailability: true,
     requirePhone: true,
@@ -71,7 +70,7 @@ export function ButtonBuilder({ academyId }: ButtonBuilderProps) {
   });
 
   // Update form when config loads
-  useState(() => {
+  useEffect(() => {
     if (config) {
       setFormData({
         type: config.type,
@@ -94,7 +93,7 @@ export function ButtonBuilder({ academyId }: ButtonBuilderProps) {
         isActive: config.isActive,
       });
     }
-  });
+  }, [config]);
 
   const handleSave = async () => {
     try {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { usePixelAnalytics, usePixelEvents } from '@/hooks';
+import { usePixelAnalytics } from '@/hooks';
 import {
   BarChart,
   Bar,
@@ -203,7 +203,7 @@ export function PixelAnalyticsPanel({ academyId }: PixelAnalyticsPanelProps) {
                   paddingAngle={5}
                   dataKey="value"
                 >
-                  {mockSources.map((entry, index) => (
+                  {mockSources.map((_entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>

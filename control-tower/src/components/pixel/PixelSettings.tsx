@@ -14,7 +14,6 @@ import { PixelAnalyticsPanel } from './PixelAnalyticsPanel';
 import { EmbedCodePanel } from './EmbedCodePanel';
 import { 
   Info, 
-  AlertCircle, 
   CheckCircle2, 
   Copy, 
   ExternalLink,

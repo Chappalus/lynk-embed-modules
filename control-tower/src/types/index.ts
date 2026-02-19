@@ -80,6 +80,7 @@ export interface Batch {
   currency: string;
   capacity: number;
   enrolledCount: number;
+  availableSpots: number;
   coachId?: string;
   coachName?: string;
   venueId?: string;

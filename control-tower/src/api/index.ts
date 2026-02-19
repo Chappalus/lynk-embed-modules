@@ -4,7 +4,7 @@ import type {
   AppointmentSlot, PixelEvent, ButtonAnalytics, PixelAnalytics, EmbedCode 
 } from '@/types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api/v1';
+const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || '/api/v1';
 
 class LynkAPI {
   private client: AxiosInstance;

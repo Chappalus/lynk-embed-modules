@@ -10,14 +10,12 @@ import {
   CartesianGrid, 
   Tooltip, 
   ResponsiveContainer,
-  LineChart,
-  Line,
   PieChart,
   Pie,
   Cell
 } from 'recharts';
 import { Calendar, Download, TrendingUp, Users, MousePointer, CheckCircle } from 'lucide-react';
-import { format, subDays, startOfDay } from 'date-fns';
+import { format, subDays } from 'date-fns';
 
 interface ButtonAnalyticsPanelProps {
   academyId: string;
@@ -180,7 +178,7 @@ export function ButtonAnalyticsPanel({ academyId }: ButtonAnalyticsPanelProps) {
                   paddingAngle={5}
                   dataKey="value"
                 >
-                  {deviceData.map((entry, index) => (
+                  {deviceData.map((_entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>

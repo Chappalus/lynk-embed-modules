@@ -1,7 +1,7 @@
 import { Routes, Route, NavLink } from 'react-router-dom'
 import { PixelSettings } from './components/pixel/PixelSettings'
 import { ButtonBuilder } from './components/button/ButtonBuilder'
-import { BarChart3, MousePointer, Settings } from 'lucide-react'
+import { BarChart3, MousePointer } from 'lucide-react'
 
 // Mock academy ID for demo
 const ACADEMY_ID = 'demo-academy-123'

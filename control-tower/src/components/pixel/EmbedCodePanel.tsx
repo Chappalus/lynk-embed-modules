@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useEmbedCode } from '@/hooks';
-import { Check, Copy, Code, FileCode, Globe, ShoppingBag, Wordpress } from 'lucide-react';
+import { Check, Copy, Code, Globe, ShoppingBag } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 interface EmbedCodePanelProps {
@@ -11,7 +11,7 @@ interface EmbedCodePanelProps {
 }
 
 export function EmbedCodePanel({ academyId, type }: EmbedCodePanelProps) {
-  const { data: embedCode } = useEmbedCode(academyId);
+  useEmbedCode(academyId);
   const [copied, setCopied] = useState<string | null>(null);
 
   const handleCopy = (code: string, label: string) => {
@@ -112,7 +112,7 @@ function App() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Wordpress className="h-5 w-5" />
+                <Globe className="h-5 w-5" />
                 WordPress
               </CardTitle>
               <CardDescription>
