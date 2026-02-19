@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import api from '@/api';
+import { mockApi as api } from '@/api/mock';
 import type { PixelConfig, ButtonConfig, AppointmentSettings } from '@/types';
 
 const ACADEMY_KEY = 'academy';
