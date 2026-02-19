@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lynk Button - Demo</title>
+  
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+    .demo-section {
+      background: #f8f9fa;
+      padding: 24px;
+      border-radius: 8px;
+      margin: 24px 0;
+    }
+    .button-container {
+      padding: 40px;
+      background: white;
+      border-radius: 8px;
+      text-align: center;
+      margin: 16px 0;
+    }
+    .config-panel {
+      background: #212529;
+      color: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 16px;
+    }
+    .config-panel code {
+      color: #7ee787;
+    }
+    h2 { margin-top: 0; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔘 Lynk Button Demo</h1>
+  <p>Embeddable booking widget for academies. Works on any website.</p>
+
+  <!-- Demo 1: Default Style -->
+  <div class="demo-section">
+    <h2>Default Style</h2>
+    <div id="demo-button-1" class="button-container"></div>
+    <div class="config-panel">
+      <code>
+        type: 'both'<br>
+        buttonStyle: 'default'<br>
+        buttonSize: 'large'
+      </code>
+    </div>
+  </div>
+
+  <!-- Demo 2: Outline Style -->
+  <div class="demo-section">
+    <h2>Outline Style</h2>
+    <div id="demo-button-2" class="button-container"></div>
+    <div class="config-panel">
+      <code>
+        type: 'booking'<br>
+        buttonStyle: 'outline'<br>
+        theme.primaryColor: '#FF6B35'
+      </code>
+    </div>
+  </div>
+
+  <!-- Demo 3: Custom Theme -->
+  <div class="demo-section">
+    <h2>Custom Theme</h2>
+    <div id="demo-button-3" class="button-container"></div>
+    <div class="config-panel">
+      <code>
+        type: 'appointment'<br>
+        theme.primaryColor: '#6B2DFF'<br>
+        theme.borderRadius: '50px'<br>
+        theme.shadow: true
+      </code>
+    </div>
+  </div>
+
+  <!-- Demo 4: Inline HTML -->
+  <div class="demo-section">
+    <h2>Auto-initialized (HTML-only)</h2>
+    <div id="lynk-button" class="button-container"></div>
+    <p style="font-size: 14px; color: #666;">
+      This button auto-initializes via data attributes on the script tag.
+    </p>
+  </div>
+
+  <!-- Auto-init script for demo 4 -->
+  <script 
+    src="../dist/lynk-button.js"
+    data-academy-id="demo-academy-123"
+    data-api-key="demo-key-xxx"
+    data-type="both"
+    data-button-text="Get in Touch"
+    data-debug="true">
+  </script>
+
+  <!-- Programmatic initialization for demos 1-3 -->
+  <script type="module">
+    import { LynkButton } from '../dist/lynk-sdk.esm.js';
+
+    // Mock API responses for demo
+    const mockBatches = [
+      {
+        id: 'batch-1',
+        name: 'Beginner Tennis (Age 6-10)',
+        schedule: 'Mon, Wed, Fri • 4:00 PM - 5:30 PM',
+        price: 2999,
+        currency: '₹',
+        availableSpots: 8,
+        coachName: 'Coach Rahul',
+        venueName: 'Court A'
+      },
+      {
+        id: 'batch-2',
+        name: 'Intermediate Tennis (Age 10-14)',
+        schedule: 'Tue, Thu, Sat • 5:00 PM - 6:30 PM',
+        price: 3499,
+        currency: '₹',
+        availableSpots: 3,
+        coachName: 'Coach Priya',
+        venueName: 'Court B'
+      },
+      {
+        id: 'batch-3',
+        name: 'Weekend Tennis Camp',
+        schedule: 'Sat, Sun • 9:00 AM - 12:00 PM',
+        price: 4999,
+        currency: '₹',
+        availableSpots: 12,
+        coachName: 'Coach Rahul & Priya',
+        venueName: 'Main Court'
+      }
+    ];
+
+    const mockAppointments = [
+      { id: 'apt-1', date: new Date().toISOString().split('T')[0], time: '10:00 AM', duration: 30, coachName: 'Coach Rahul' },
+      { id: 'apt-2', date: new Date().toISOString().split('T')[0], time: '11:00 AM', duration: 30, coachName: 'Coach Priya' },
+      { id: 'apt-3', date: new Date().toISOString().split('T')[0], time: '2:00 PM', duration: 45, coachName: 'Coach Rahul' },
+      { id: 'apt-4', date: new Date(Date.now() + 86400000).toISOString().split('T')[0], time: '9:00 AM', duration: 30, coachName: 'Coach Priya' },
+      { id: 'apt-5', date: new Date(Date.now() + 86400000).toISOString().split('T')[0], time: '3:00 PM', duration: 30, coachName: 'Coach Rahul' }
+    ];
+
+    // Initialize Demo 1: Default
+    const btn1 = new LynkButton({
+      selector: '#demo-button-1',
+      academyId: 'demo-academy',
+      apiKey: 'demo-key',
+      type: 'both',
+      buttonText: 'Book Now',
+      buttonStyle: 'default',
+      buttonSize: 'large',
+      debug: true,
+      onBookingSuccess: (booking) => {
+        console.log('Demo 1 - Booking success:', booking);
+      }
+    });
+
+    // Initialize Demo 2: Outline
+    const btn2 = new LynkButton({
+      selector: '#demo-button-2',
+      academyId: 'demo-academy',
+      apiKey: 'demo-key',
+      type: 'booking',
+      buttonText: 'Join a Batch',
+      buttonStyle: 'outline',
+      theme: {
+        primaryColor: '#FF6B35',
+        borderRadius: '8px'
+      },
+      debug: true
+    });
+
+    // Initialize Demo 3: Custom Theme
+    const btn3 = new LynkButton({
+      selector: '#demo-button-3',
+      academyId: 'demo-academy',
+      apiKey: 'demo-key',
+      type: 'appointment',
+      buttonText: 'Schedule a Call',
+      buttonStyle: 'default',
+      theme: {
+        primaryColor: '#6B2DFF',
+        borderRadius: '50px',
+        shadow: true,
+        fontFamily: 'Georgia, serif'
+      },
+      debug: true
+    });
+
+    // Initialize all buttons
+    btn1.init();
+    btn2.init();
+    btn3.init();
+
+    // Note: In real usage, the button would fetch from the API
+    // Here we're showing the UI structure that would appear
+    console.log('Demo buttons initialized');
+    console.log('Mock batches:', mockBatches);
+    console.log('Mock appointments:', mockAppointments);
+  </script>
+</body>
+</html>

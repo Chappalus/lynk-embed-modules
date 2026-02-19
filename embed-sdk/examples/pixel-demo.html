@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lynk Pixel - Demo</title>
+  
+  <!-- Lynk Pixel -->
+  <script 
+    src="../dist/lynk-pixel.js"
+    data-academy-id="demo-academy-123"
+    data-api-key="demo-key-xxx"
+    data-google-pixel="AW-123456789"
+    data-facebook-pixel="1234567890"
+    data-ga4-id="G-ABCDEF123"
+    data-debug="true">
+  </script>
+  
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+    .demo-section {
+      background: #f8f9fa;
+      padding: 24px;
+      border-radius: 8px;
+      margin: 24px 0;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 8px;
+    }
+    button:hover { background: #0056b3; }
+    code {
+      background: #e9ecef;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    pre {
+      background: #212529;
+      color: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎯 Lynk Pixel Demo</h1>
+  <p>This page demonstrates the Lynk Marketing Pixel with Google Ads, Facebook Pixel, and GA4 integration.</p>
+  
+  <div class="demo-section">
+    <h2>Auto-tracked Events</h2>
+    <p>These events fire automatically:</p>
+    <ul>
+      <li><code>page_view</code> - Fired on page load and SPA navigation</li>
+      <li>Attribution capture (UTM params, gclid, fbclid)</li>
+    </ul>
+    <p>Open DevTools → Console to see debug logs.</p>
+  </div>
+
+  <div class="demo-section">
+    <h2>Manual Event Tracking</h2>
+    <p>Click buttons to trigger custom events:</p>
+    
+    <button onclick="trackBeginCheckout()">
+      🔥 Track Begin Checkout
+    </button>
+    
+    <button onclick="trackPurchase()">
+      💰 Track Purchase
+    </button>
+    
+    <button onclick="trackLead()">
+      📋 Track Lead
+    </button>
+    
+    <button onclick="trackContact()">
+      📞 Track Contact
+    </button>
+
+    <h3>Event Code:</h3>
+    <pre id="event-code">// Click a button above to see the code</pre>
+  </div>
+
+  <div class="demo-section">
+    <h2>Consent Management</h2>
+    <p>Test GDPR/CCPA consent handling:</p>
+    
+    <button onclick="acceptAll()">
+      ✅ Accept All
+    </button>
+    
+    <button onclick="rejectMarketing()">
+      🚫 Reject Marketing Only
+    </button>
+  </div>
+
+  <script>
+    function showCode(code) {
+      document.getElementById('event-code').textContent = code;
+    }
+
+    function trackBeginCheckout() {
+      const code = `lynkPixel.trackBeginCheckout({
+  batchId: 'batch-123',
+  batchName: 'Beginner Tennis Camp',
+  value: 2999,
+  currency: 'INR'
+});`;
+      
+      if (window.lynkPixel) {
+        window.lynkPixel.trackBeginCheckout({
+          batchId: 'batch-123',
+          batchName: 'Beginner Tennis Camp',
+          value: 2999,
+          currency: 'INR'
+        });
+      }
+      showCode(code);
+    }
+
+    function trackPurchase() {
+      const code = `lynkPixel.trackPurchase({
+  value: 2999,
+  currency: 'INR',
+  transactionId: 'TXN-' + Date.now(),
+  items: [{
+    id: 'batch-123',
+    name: 'Beginner Tennis Camp',
+    quantity: 1,
+    price: 2999
+  }]
+});`;
+      
+      if (window.lynkPixel) {
+        window.lynkPixel.trackPurchase({
+          value: 2999,
+          currency: 'INR',
+          transactionId: 'TXN-' + Date.now(),
+          items: [{
+            id: 'batch-123',
+            name: 'Beginner Tennis Camp',
+            quantity: 1,
+            price: 2999
+          }]
+        });
+      }
+      showCode(code);
+    }
+
+    function trackLead() {
+      const code = `lynkPixel.trackLead({
+  formName: 'Summer Camp Inquiry',
+  value: 100
+});`;
+      
+      if (window.lynkPixel) {
+        window.lynkPixel.trackLead({
+          formName: 'Summer Camp Inquiry',
+          value: 100
+        });
+      }
+      showCode(code);
+    }
+
+    function trackContact() {
+      const code = `lynkPixel.trackContact({
+  method: 'phone',
+  value: 50
+});`;
+      
+      if (window.lynkPixel) {
+        window.lynkPixel.trackContact({
+          method: 'phone',
+          value: 50
+        });
+      }
+      showCode(code);
+    }
+
+    function acceptAll() {
+      const code = `lynkPixel.setConsent({
+  analytics: true,
+  marketing: true
+});`;
+      
+      if (window.lynkPixel) {
+        window.lynkPixel.setConsent({
+          analytics: true,
+          marketing: true
+        });
+      }
+      showCode(code);
+      alert('Consent updated: Analytics ✅ Marketing ✅');
+    }
+
+    function rejectMarketing() {
+      const code = `lynkPixel.setConsent({
+  analytics: true,
+  marketing: false
+});`;
+      
+      if (window.lynkPixel) {
+        window.lynkPixel.setConsent({
+          analytics: true,
+          marketing: false
+        });
+      }
+      showCode(code);
+      alert('Consent updated: Analytics ✅ Marketing 🚫');
+    }
+
+    // Log when pixel is ready
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        console.log('✅ Pixel ready:', window.lynkPixel ? 'Yes' : 'No');
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
