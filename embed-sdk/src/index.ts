@@ -27,14 +27,12 @@ export { LynkPixel, PixelConfig, PixelEvent } from './pixel';
 export { LynkButton, ButtonConfig, ButtonType, ButtonTheme, Batch, AppointmentSlot } from './button';
 export { AcademyConfig, TrackingEvent } from './shared/types';
 
-import { LynkPixel } from './pixel';
-import { LynkButton } from './button';
-
-export { LynkPixel, LynkButton };
+import { LynkPixel as Pixel } from './pixel';
+import { LynkButton as Button } from './button';
 
 // Global SDK object
 export default {
-  Pixel: LynkPixel,
-  Button: LynkButton,
+  Pixel,
+  Button,
   version: '1.0.0'
 };

@@ -27,16 +27,16 @@ export interface TrackingEvent {
 export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
 export class Logger {
-  private debug: boolean;
+  private debugMode: boolean;
   private prefix: string;
 
   constructor(prefix: string, debug = false) {
     this.prefix = prefix;
-    this.debug = debug;
+    this.debugMode = debug;
   }
 
   log(level: LogLevel, message: string, ...args: any[]): void {
-    if (!this.debug && level === 'debug') return;
+    if (!this.debugMode && level === 'debug') return;
     
     const timestamp = new Date().toISOString();
     const formatted = `[${timestamp}] [${this.prefix}] [${level.toUpperCase()}] ${message}`;
